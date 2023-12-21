@@ -8,6 +8,13 @@ class PlanTool(BaseTool):
         self.server_url = server_url
 
     def reply(self, message):
+        content = self.get_plan(message)
+        content = content.replace("\n", "。")
+        content = content.replace(" ", "")
+        content = content.replace("-", ",")
+        return content
+
+    def get_plan(self, message):
         if "周" in message:
             return self.get_week_plan()
         if "月" in message:
@@ -18,9 +25,9 @@ class PlanTool(BaseTool):
 
     def get_week_plan(self):
         week_plan = self.get_json(self.get_url("weekly"))["data"][0]["data"]
-        content = "这周生活计划" + week_plan["next_week_life_plan"]
-        content += "\n工作计划" + week_plan["next_week_work_plan"]
-        content += "\n学习计划" + week_plan["next_week_study_plan"]
+        content = "这周生活计划:" + week_plan["next_week_life_plan"]
+        content += "\n工作计划:" + week_plan["next_week_work_plan"]
+        content += "\n学习计划:" + week_plan["next_week_study_plan"]
         return content
 
     def get_month_plan(self):
