@@ -13,3 +13,4 @@ class Assistant:
         if "计划" in message:
             if server_url := self.config.get("server_url"):
                 return PlanTool(server_url).reply(message)
+        return "我不能帮助你"
