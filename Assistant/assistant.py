@@ -1,4 +1,6 @@
+from Tool.GPTTool import GPTTool
 from Tool.PlanTool import PlanTool
+from Tool.NewsTool import NewsTool
 
 
 class Assistant:
@@ -13,4 +15,7 @@ class Assistant:
         if "计划" in message:
             if server_url := self.config.get("server_url"):
                 return PlanTool(server_url).reply(message)
-        return "我不能帮助你"
+        if "新闻" in message:
+            if rss_url := self.config.get("rss_url"):
+                return NewsTool(rss_url).reply(message)
+        return GPTTool().reply(message)

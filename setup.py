@@ -8,5 +8,5 @@ setup(
     author="TC",
     author_email="me@tczhong.com",
     url="http://github.com/cczhong11/MyAssistant",
-    install_requires=["openai", "requests"],
+    install_requires=["openai", "requests", "feedparser"],
 )
