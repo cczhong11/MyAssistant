@@ -1,4 +1,5 @@
 from Tool.GPTTool import GPTTool
+from Tool.MemoTool import MemoTool
 from Tool.PlanTool import PlanTool
 from Tool.NewsTool import NewsTool
 
@@ -18,4 +19,7 @@ class Assistant:
         if "新闻" in message:
             if rss_url := self.config.get("rss_url"):
                 return NewsTool(rss_url).reply(message)
+        if "反思" in message or "#exp" in message:
+            if memo_url := self.config.get("memo_url"):
+                return MemoTool(memo_url).reply(message)
         return GPTTool().reply(message)

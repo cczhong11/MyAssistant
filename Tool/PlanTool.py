@@ -38,7 +38,7 @@ class PlanTool(BaseTool):
 
     def get_year_plan(self):
         year_plan = self.get_json(
-            f"{self.server_url}/backend/file?name=2023%E5%B9%B4%E8%AE%A1%E5%88%92.md&list=must"
+            f"{self.server_url}/backend/file?name=2024%E5%B9%B4%E8%AE%A1%E5%88%92.md&list=must"
         )
         content = "年计划" + year_plan["data"][0]["content"]
 
