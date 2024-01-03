@@ -5,9 +5,9 @@ import openai
 
 
 class GPTTool(BaseTool):
-    def __init__(self):
+    def __init__(self, token):
         super(GPTTool, self).__init__("chatbot")
-        self.client = openai.OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+        self.client = openai.OpenAI(api_key=token)
 
     def reply(self, message):
         response = self.client.chat.completions.create(

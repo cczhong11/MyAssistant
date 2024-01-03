@@ -1,3 +1,4 @@
+import os
 from Tool.GPTTool import GPTTool
 from Tool.MemoTool import MemoTool
 from Tool.PlanTool import PlanTool
@@ -22,4 +23,5 @@ class Assistant:
         if "反思" in message or "#exp" in message:
             if memo_url := self.config.get("memo_url"):
                 return MemoTool(memo_url).reply(message)
-        return GPTTool().reply(message)
+        token = self.config.get("openai") or os.environ.get("OPENAI_API_KEY")
+        return GPTTool(token).reply(message)
