@@ -22,6 +22,9 @@ class Assistant:
                 return NewsTool(rss_url).reply(message)
         if "反思" in message or "#exp" in message:
             if memo_url := self.config.get("memo_url"):
-                return MemoTool(memo_url).reply(message)
+                return MemoTool(memo_url).reply_exp(message)
+        if "读书心得" in message or "#book" in message:
+            if memo_url := self.config.get("memo_url"):
+                return MemoTool(memo_url).reply_book(message)
         token = self.config.get("openai") or os.environ.get("OPENAI_API_KEY")
         return GPTTool(token).reply(message)
