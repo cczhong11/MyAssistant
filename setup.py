@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="MyAssistant",
-    version="0.1",
+    version="0.2",
     packages=find_packages(),
     description="helper for your life",
     author="TC",

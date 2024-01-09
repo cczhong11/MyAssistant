@@ -18,6 +18,11 @@ class MemoTool(BaseTool):
             message = message + " #book"
         return self.reply_inner(message)
 
+    def reply_memo(self, message):
+        if "memo:" in message:
+            message = message.replace("memo:", "")
+        return self.reply_inner(message)
+
     def reply_inner(self, message):
         headers = {
             "Content-Type": "application/json",

@@ -26,5 +26,8 @@ class Assistant:
         if "读书心得" in message or "#book" in message:
             if memo_url := self.config.get("memo_url"):
                 return MemoTool(memo_url).reply_book(message)
+        if "memo:" in message:
+            if memo_url := self.config.get("memo_url"):
+                return MemoTool(memo_url).reply_memo(message)
         token = self.config.get("openai") or os.environ.get("OPENAI_API_KEY")
         return GPTTool(token).reply(message)
