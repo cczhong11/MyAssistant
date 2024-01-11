@@ -4,6 +4,7 @@ from Tool.MemoTool import MemoTool
 from Tool.PlanTool import PlanTool
 from Tool.NewsTool import NewsTool
 from Tool.ReminderTool import ReminderTool
+from Tool.Social import SocialTool
 
 
 class Assistant:
@@ -34,4 +35,7 @@ class Assistant:
         if "提醒" in message:
             if server_url := self.config.get("server_url"):
                 return ReminderTool(token, server_url).reply(message)
+        if "小红书" in message:
+            if server_url := self.config.get("server_url"):
+                return SocialTool(token, server_url).reply(message)
         return GPTTool(token).reply(message)
