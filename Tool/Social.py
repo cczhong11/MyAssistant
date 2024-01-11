@@ -24,6 +24,9 @@ class SocialTool(BaseTool):
     def reply(self, message):
         if "小红书" not in message:
             return "只支持小红书搜索"
+        day = 1
+        if "一周" in message:
+            day = 7
         for keyword in [
             "湾区",
             "滑雪",
@@ -39,11 +42,11 @@ class SocialTool(BaseTool):
             "电影",
         ]:
             if keyword in message:
-                return self.get_social("xiaohongshu", keyword, 1, message)
+                return self.get_social("xiaohongshu", keyword, day, message)
 
         prompt = "帮我找一下句子里的关键词，例如湾区、滑雪、皮卡丘、dating、meta、科技、ai、美食, 只回答一个关键词: " + message
         result = self.openai_result(prompt)
-        return self.get_social("xiaohongshu", result, 1, message)
+        return self.get_social("xiaohongshu", result, day, message)
 
     def get_social(self, app, keyword, recent_days, message):
         response = requests.get(
@@ -55,6 +58,8 @@ class SocialTool(BaseTool):
         idx_results = []
         if len(contents.keys()) > 8:
             idx_results = random.sample(contents.keys(), 8)
+        else:
+            idx_results = contents.keys()
         final_prompt = "下面是我找到的内容：\n"
         reply_content = ""
         for idx in idx_results:
