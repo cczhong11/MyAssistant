@@ -27,28 +27,17 @@ class SocialTool(BaseTool):
         day = 1
         if "一周" in message:
             day = 7
-        for keyword in [
-            "湾区",
-            "滑雪",
-            "湾区",
-            "皮卡丘",
-            "dating",
-            "meta",
-            "科技",
-            "ai",
-            "美食",
-            "约会",
-            "旅行",
-            "电影",
-        ]:
-            if keyword in message:
-                return self.get_social("xiaohongshu", keyword, day, message)
+        # find tag in message
+        tags = re.findall(r"#([\w\d]+)", message)
+        if len(tags) == 0:
+            return "请输入tag"
 
-        prompt = "帮我找一下句子里的关键词，例如湾区、滑雪、皮卡丘、dating、meta、科技、ai、美食, 只回答一个关键词: " + message
-        result = self.openai_result(prompt)
-        return self.get_social("xiaohongshu", result, day, message)
+        return self.get_social("xiaohongshu", ",".join(tags), day, message)
 
     def get_social(self, app, keyword, recent_days, message):
+        print(
+            f"{self.server_url}/backend/social_media?name={app}&keyword={keyword}&day={recent_days}"
+        )
         response = requests.get(
             f"{self.server_url}/backend/social_media?name={app}&keyword={keyword}&day={recent_days}"
         )
