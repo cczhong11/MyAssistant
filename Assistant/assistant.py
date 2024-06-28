@@ -38,4 +38,8 @@ class Assistant:
         if "小红书" in message:
             if server_url := self.config.get("server_url"):
                 return SocialTool(token, server_url).reply(message)
+        keywords = self.config.get("keywords")
+        for k, prompt in keywords.items():
+            if k in message:
+                return GPTTool(token).reply(prompt + ". context: " + message)
         return GPTTool(token).reply(message)
