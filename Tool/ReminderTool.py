@@ -12,7 +12,7 @@ class ReminderTool(BaseTool):
 
     def choose_list(self, message):
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o",
             messages=[{"role": "user", "content": message}],
             max_tokens=30,
         )
@@ -28,7 +28,7 @@ class ReminderTool(BaseTool):
             "我有以下提醒事项清单：\n"
             + ",".join(reminder_list)
             + "\n 根据我的日程，请从中选择一个提醒事项， 只输出提醒列表名字。"
-            + "\n 我的日程："
+            + "\n 我的问题："
             + message
         )
         result = self.choose_list(message)
@@ -42,4 +42,6 @@ class ReminderTool(BaseTool):
             f"{self.server_url}/backend/json?name={reminder}.json&list=reminder_list"
         )
 
-        return response.json()["data"][0]["data"].get("reminder_content") or "无提醒事项"
+        return (
+            response.json()["data"][0]["data"].get("reminder_content") or "无提醒事项"
+        )
